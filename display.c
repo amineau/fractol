@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 18:29:59 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/26 12:29:07 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/26 19:39:22 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	display_mandelbrot(t_env *e)
 			e->z_r = 0;
 			e->z_i = 0;
 			i = 0;
-			while (i < e->iter_max && e->z_r * e->z_r + e->z_i * e->z_i < e->f)
+			while (i < e->iter_max && e->z_r * e->z_r + e->z_i * e->z_i < 4)
 			{
 				tmp = e->z_r;
 				e->z_r = (e->z_r * e->z_r) - (e->z_i * e->z_i) + e->c_r;
@@ -40,15 +40,15 @@ void	display_mandelbrot(t_env *e)
 		//	printf("i : %d || c_r : %f || zi : %f\n", i, e->c_r, e->z_i);
 			if (i == e->iter_max)
 			{
-				e->img_addr[y * e->size_line + x * e->bits_pix / 8] = 255;
-				e->img_addr[y * e->size_line + x * e->bits_pix / 8 + 1] = 255;
-				e->img_addr[y * e->size_line + x * e->bits_pix / 8 + 2] = 255;
+				e->img_addr[y * e->size_line + x * e->bits_pix / 8] = 0;
+				e->img_addr[y * e->size_line + x * e->bits_pix / 8 + 1] = 0;
+				e->img_addr[y * e->size_line + x * e->bits_pix / 8 + 2] = 0;
 			}
 			else
 			{
-				e->img_addr[y * e->size_line + x * e->bits_pix / 8] = (i * 255 / e->iter_max);
-				e->img_addr[y * e->size_line + x * e->bits_pix / 8 + 1] = 0;
-				e->img_addr[y * e->size_line + x * e->bits_pix / 8 + 2] = 0;
+				e->img_addr[y * e->size_line + x * e->bits_pix / 8] = i * 255 / e->iter_max;
+				e->img_addr[y * e->size_line + x * e->bits_pix / 8 + 1] = i * 255 / e->iter_max;
+				e->img_addr[y * e->size_line + x * e->bits_pix / 8 + 2] = i * 255 / e->iter_max;
 			}
 			y++;
 		}

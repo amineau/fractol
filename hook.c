@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/10 14:21:02 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/26 12:22:36 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/26 19:39:18 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,28 @@ int		key_press(int keycode, t_env *e)
 		e->iter_max++;
 	if (keycode == 78 && e->iter_max > 1)
 		e->iter_max--;
-	if (keycode == 125 && e->f > 1)
-		e->f--;
+	if (keycode == 125)
+	{
+		e->y1 += 50 / e->zoom;
+		e->y2 += 50 / e->zoom;
+	}
 	if (keycode == 126)
-		e->f++;
-	if (e)
+	{
+		e->y1 -= 50 / e->zoom;
+		e->y2 -= 50 / e->zoom;
+	}
+	if (keycode == 123)
+	{
+		e->x1 -= 50 / e->zoom;
+		e->x2 -= 50 / e->zoom;
+	}
+	if (keycode == 124)
+	{
+		e->x1 += 50 / e->zoom;
+		e->x2 += 50 / e->zoom;
+	}
+
+		if (e)
 		printf("keycode : %d\n", keycode);
 	image(e);
 	return (0);
