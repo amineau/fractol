@@ -6,12 +6,12 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/10 14:21:02 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/25 20:10:12 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/26 09:41:12 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
+#include <stdio.h>
 void	image(t_env *e)
 {
 	if (e->img)
@@ -27,8 +27,17 @@ int		key_press(int keycode, t_env *e)
 {
 	if (keycode == 53)
 		exit(0);
+	if (keycode == 69)
+		e->iter_max++;
+	if (keycode == 78 && e->iter_max > 1)
+		e->iter_max--;
+	if (keycode == 125 && e->f > 1)
+		e->f--;
+	if (keycode == 126)
+		e->f++;
 	if (e)
-		;
+		printf("keycode : %d\n", keycode);
+	image(e);
 	return (0);
 }
 
@@ -42,7 +51,12 @@ int		motion_notify(int x, int y, t_env *e)
 int		mouse_press(int button, int x, int y, t_env *e)
 {
 	if (button || x || e || y)
-		;
+		printf("button : %d\n", button);
+	if (button == 5)
+		e->zoom *= 1.1;
+	if (button == 4)
+		e->zoom /= 1.1;
+	image(e);
 	return (0);
 }
 

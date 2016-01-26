@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 13:21:31 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/25 20:44:08 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/26 09:36:15 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ typedef struct	s_env
 	float	x2;
 	float	y1;
 	float	y2;
-	float	zoom_x;
-	float	zoom_y;
+	float	zoom;
 	float	image_x;
 	float	image_y;
 	float	c_r;
@@ -33,6 +32,7 @@ typedef struct	s_env
 	float	z_r;
 	float	z_i;
 	int		iter_max;
+	int		f;
   	void	*mlx;
 	void	*win;
 	void	*img;

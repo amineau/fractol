@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/20 09:18:52 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/25 20:59:23 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/26 09:35:59 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ void	initialize(t_env *e, char *str)
 	e->x2 = 0.6;
 	e->y1 = -1.2;
 	e->y2 = 1.2;
-	e->image_x = 1000;
-	e->image_y = 1000;
-	e->zoom_x = e->image_x / (e->x2 - e->x1);
-	e->zoom_y = e->image_y / (e->y2 - e->y1);
-	e->iter_max = 500;
+	e->zoom = 500;
+	e->image_x = (e->x2 - e->x1) * e->zoom;
+	e->image_y = (e->y2 - e->y1) * e->zoom;
+	e->iter_max = 50;
+	e->f = 4;
 	e->mlx = mlx_init();
 	e->win = mlx_new_window(e->mlx, e->image_x, e->image_y, e->fract);
 }
