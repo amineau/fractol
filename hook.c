@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/10 14:21:02 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/26 09:41:12 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/26 12:22:36 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,10 @@ int		motion_notify(int x, int y, t_env *e)
 
 int		mouse_press(int button, int x, int y, t_env *e)
 {
-	if (button || x || e || y)
-		printf("button : %d\n", button);
-	if (button == 5)
+	printf("button : %d || x : %d || y : %d\n", button, x, y);
+	if (button == 5 || button == 6)
 		e->zoom *= 1.1;
-	if (button == 4)
+	if (button == 4 || button == 7)
 		e->zoom /= 1.1;
 	image(e);
 	return (0);

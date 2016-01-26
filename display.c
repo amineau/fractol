@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 18:29:59 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/26 09:41:10 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/26 12:29:07 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,26 @@
 #include <stdio.h>
 void	display_mandelbrot(t_env *e)
 {
-	int	x;
-	int	y;
-	int i;
-	int	tmp;
+	int		x;
+	int		y;
+	int		i;
+	float	tmp;
 
-	x = 1;
-	while (x < e->image_x)
+	x = 0;
+	while (x < e->image_x - 1)
 	{
-		y = 1;
-		while (y < e->image_y)
+		y = 0;
+		while (y < e->image_y - 1)
 		{
-			e->c_r = x / e->zoom + e->x1;
-			e->c_i = y / e->zoom + e->y1;
+			e->c_r = (x / e->zoom) + e->x1;
+			e->c_i = (y / e->zoom) + e->y1;
 			e->z_r = 0;
 			e->z_i = 0;
 			i = 0;
 			while (i < e->iter_max && e->z_r * e->z_r + e->z_i * e->z_i < e->f)
 			{
 				tmp = e->z_r;
-				e->z_r = e->z_r * e->z_r - e->z_i * e->z_i + e->c_r;
+				e->z_r = (e->z_r * e->z_r) - (e->z_i * e->z_i) + e->c_r;
 				e->z_i = 2 * e->z_i * tmp + e->c_i;
 				i++;
 			}
@@ -43,6 +43,12 @@ void	display_mandelbrot(t_env *e)
 				e->img_addr[y * e->size_line + x * e->bits_pix / 8] = 255;
 				e->img_addr[y * e->size_line + x * e->bits_pix / 8 + 1] = 255;
 				e->img_addr[y * e->size_line + x * e->bits_pix / 8 + 2] = 255;
+			}
+			else
+			{
+				e->img_addr[y * e->size_line + x * e->bits_pix / 8] = (i * 255 / e->iter_max);
+				e->img_addr[y * e->size_line + x * e->bits_pix / 8 + 1] = 0;
+				e->img_addr[y * e->size_line + x * e->bits_pix / 8 + 2] = 0;
 			}
 			y++;
 		}
