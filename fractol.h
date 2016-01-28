@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 13:21:31 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/26 18:56:58 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/27 14:51:30 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,17 @@
 typedef struct	s_env
 {
 	char	*fract;
-	float	x1;
-	float	x2;
-	float	y1;
-	float	y2;
-	float	zoom;
-	float	image_x;
-	float	image_y;
-	float	c_r;
-	float	c_i;
-	float	z_r;
-	float	z_i;
+	double	x1;
+	double	x2;
+	double	y1;
+	double	y2;
+	double	zoom;
+	double	image_x;
+	double	image_y;
+	double	c_r;
+	double	c_i;
+	double	z_r;
+	double	z_i;
 	int		iter_max;
 	int		pos_x;
 	int		pos_y;

@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 18:29:59 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/26 19:39:22 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/28 10:05:34 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ void	display_mandelbrot(t_env *e)
 	int		x;
 	int		y;
 	int		i;
-	float	tmp;
+	double	tmp;
 
 	x = 0;
-	while (x < e->image_x - 1)
+	while (x < e->image_x)
 	{
 		y = 0;
-		while (y < e->image_y - 1)
+		while (y < e->image_y)
 		{
 			e->c_r = (x / e->zoom) + e->x1;
 			e->c_i = (y / e->zoom) + e->y1;

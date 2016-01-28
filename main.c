@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/20 09:18:52 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/26 19:39:20 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/28 10:05:29 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	initialize(t_env *e, char *str)
 	e->x2 = 0.6;
 	e->y1 = -1.2;
 	e->y2 = 1.2;
-	e->zoom = 500;
+	e->zoom = 300;
 	e->image_x = (e->x2 - e->x1) * e->zoom;
 	e->image_y = (e->y2 - e->y1) * e->zoom;
 	e->iter_max = 50;
