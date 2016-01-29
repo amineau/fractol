@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/10 14:21:02 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/28 10:05:32 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/29 19:28:20 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,12 @@ int		mouse_press(int button, int x, int y, t_env *e)
 	printf("button : %d || x : %d || y : %d\n", button, x, y);
 	if (button == 5 || button == 6)
 	{
-		printf("1:e->x1 : %f\n",e->x1);
-		e->x1 += 0.1 * ((e->pos_x * (e->x2 - e->x1) / e->image_x) - e->x1);
-		e->y1 += 0.1 * ((e->pos_y * (e->y2 - e->y1) / e->image_y) - e->y1);
-		printf("2:e->x1 : %f\n",e->x1);
+		printf("e->x1 : %f || e->x2 : %f\n",e->x1, e->x2);
+		e->x1 += (e->x2 - e->x1) * 0.1;
+		e->y1 += (e->y2 - e->y1) * 0.1;
+		//e->x2 -= 0.1 * (e->x2 - e->x1);
+		//e->y2 -= 0.1 * (e->y2 - e->y1);
+		printf("image_x : %f || image_y : %f\n", e->image_x, e->image_y);
 		e->zoom *= 1.1;
 	}
 		if (button == 4 || button == 7)
