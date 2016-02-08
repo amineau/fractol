@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/10 14:21:02 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/29 19:28:20 by amineau          ###   ########.fr       */
+/*   Updated: 2016/02/08 17:36:18 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,20 +67,33 @@ int		motion_notify(int x, int y, t_env *e)
 
 int		mouse_press(int button, int x, int y, t_env *e)
 {
-	printf("button : %d || x : %d || y : %d\n", button, x, y);
+	double	k_x;
+	double	k_y;
+	double	dif_x;
+	double	dif_y;
+
+	dif_x = e->x2 - e->x1;
+	dif_y = e->y2 - e->y1;
+	k_x = dif_x / e->image_x;
+	k_y = dif_y / e->image_y;
+	if (x || y)
+	//printf("button : %d || pos_x : %f || pos_y : %f\nk_x : %f || k_y : %f\n", button, (e->pos_x * k_x) + e->x1, (e->pos_y * k_y) + e->y1, k_x, k_y);
 	if (button == 5 || button == 6)
 	{
-		printf("e->x1 : %f || e->x2 : %f\n",e->x1, e->x2);
-		e->x1 += (e->x2 - e->x1) * 0.1;
-		e->y1 += (e->y2 - e->y1) * 0.1;
-		//e->x2 -= 0.1 * (e->x2 - e->x1);
-		//e->y2 -= 0.1 * (e->y2 - e->y1);
-		printf("image_x : %f || image_y : %f\n", e->image_x, e->image_y);
-		e->zoom *= 1.1;
+		printf("e->x1 : %f || e->x2 : %f || pos_x : %f k_x : %f\n", e->x1, e->x2, (e->pos_x * k_x + e->x1), k_x);
+		e->x2 = (e->pos_x * k_x + e->x1) + dif_x / 2.2;
+		e->y2 = (e->pos_y * k_y + e->y1) + dif_y / 2.2;
+		e->x1 = (e->pos_x * k_x + e->x1) - dif_x / 2.2;
+		e->y1 = (e->pos_y * k_y + e->y1) - dif_y / 2.2;
+	//	e->zoom *= 1.1;
 	}
 		if (button == 4 || button == 7)
 		{
-			e->zoom /= 1.1;
+		e->x2 = (e->pos_x * k_x + e->x1) + dif_x / 1.8;
+		e->y2 = (e->pos_y * k_y + e->y1) + dif_y / 1.8;
+		e->x1 = (e->pos_x * k_x + e->x1) - dif_x / 1.8;
+		e->y1 = (e->pos_y * k_y + e->y1) - dif_y / 1.8;
+	//		e->zoom /= 1.1;
 		}
 			image(e);
 	return (0);
