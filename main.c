@@ -6,23 +6,40 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/20 09:18:52 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/08 17:36:24 by amineau          ###   ########.fr       */
+/*   Updated: 2016/02/09 21:47:31 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
-void	initialize(t_env *e, char *str)
+void	initialize_mandel(t_env *e)
 {
-	e->fract = str;
 	e->x1 = -2.1;
 	e->x2 = 0.6;
 	e->y1 = -1.2;
 	e->y2 = 1.2;
-	e->zoom = 300;
 	e->image_x = (e->x2 - e->x1) * 300;
 	e->image_y = (e->y2 - e->y1) * 300;
 	e->iter_max = 50;
+}
+
+void	initialize_julia(t_env *e)
+{
+	e->x1 = -1;
+	e->x2 = 1;
+	e->y1 = -1.2;
+	e->y2 = 1.2;
+	e->image_x = (e->x2 - e->x1) * 300;
+	e->image_y = (e->y2 - e->y1) * 300;
+	e->iter_max = 150;
+}
+
+void	initialize(t_env *e, char *str)
+{
+	e->fract = str;
+	if (ft_strcmp(e->fract, "mandelbrot") == 0)
+		   	initialize_mandel(e);
+	if (ft_strcmp(e->fract,"julia") == 0)
+		   	initialize_julia(e);
 	e->mlx = mlx_init();
 	e->win = mlx_new_window(e->mlx, e->image_x, e->image_y, e->fract);
 }

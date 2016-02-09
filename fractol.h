@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 13:21:31 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/27 14:51:30 by amineau          ###   ########.fr       */
+/*   Updated: 2016/02/09 21:44:06 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,6 @@ int		motion_notify(int x, int y, t_env *e);
 int		mouse_press(int button, int x, int y, t_env *e);
 int		expose_hook(t_env *e);
 void	display_mandelbrot(t_env *e);
+void	display_julia(t_env *e);
 
 #endif
