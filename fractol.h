@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 13:21:31 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/09 21:44:06 by amineau          ###   ########.fr       */
+/*   Updated: 2016/02/10 16:23:24 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,14 @@ typedef struct	s_env
 	double	image_y;
 	double	c_r;
 	double	c_i;
+	double	v_r;
+	double	v_i;
 	double	z_r;
 	double	z_i;
 	int		iter_max;
 	int		pos_x;
 	int		pos_y;
+	int		block;
   	void	*mlx;
 	void	*win;
 	void	*img;

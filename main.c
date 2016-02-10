@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/20 09:18:52 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/09 21:47:31 by amineau          ###   ########.fr       */
+/*   Updated: 2016/02/10 16:28:25 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,12 @@ void	initialize_julia(t_env *e)
 	e->x2 = 1;
 	e->y1 = -1.2;
 	e->y2 = 1.2;
+	e->v_r = 0.285;
+	e->v_i = 0.01;
 	e->image_x = (e->x2 - e->x1) * 300;
 	e->image_y = (e->y2 - e->y1) * 300;
-	e->iter_max = 150;
+	e->iter_max = 75;
+	e->block = 0;
 }
 
 void	initialize(t_env *e, char *str)

@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/10 14:21:02 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/09 21:46:55 by amineau          ###   ########.fr       */
+/*   Updated: 2016/02/10 16:25:20 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,13 @@ int		key_press(int keycode, t_env *e)
 		e->x1 += dif_x / 20;
 		e->x2 += dif_x / 20;
 	}
+	if (keycode == 49)
+	{
+		if (e->block == 0)
+			e->block = 1;
+		else
+			e->block = 0;
+	}
 		printf("keycode : %d\n", keycode);
 	image(e);
 	return (0);
@@ -68,6 +75,13 @@ int		motion_notify(int x, int y, t_env *e)
 {
 	e->pos_x = x;
 	e->pos_y = y;
+	if (ft_strcmp(e->fract, "julia") == 0 && e->block == 1)
+	{
+		e->v_r = (double)(e->pos_x + 250) / 2000;
+		e->v_i = (double)(e->pos_y + 250) / 2000;
+		image(e);
+		printf("v_r : %f || v_i : %f\n",e->v_r ,e->v_i);
+	}
 	return (0);
 }
 
