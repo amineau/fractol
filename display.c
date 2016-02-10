@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 18:29:59 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/10 16:16:25 by amineau          ###   ########.fr       */
+/*   Updated: 2016/02/10 18:57:08 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,49 @@ void	display_julia(t_env *e)
 			e->c_i = e->v_i;
 			e->z_r = (x * (e->x2 - e->x1) / e->image_x) + e->x1;
 			e->z_i = (y * (e->y2 - e->y1) / e->image_y) + e->y1;
+			i = 0;
+			while (i < e->iter_max && e->z_r * e->z_r + e->z_i * e->z_i < 4)
+			{
+				tmp = e->z_r;
+				e->z_r = (e->z_r * e->z_r) - (e->z_i * e->z_i) + e->c_r;
+				e->z_i = 2 * e->z_i * tmp + e->c_i;
+				i++;
+			}
+			if (i == e->iter_max)
+			{
+				e->img_addr[y * e->size_line + x * e->bits_pix / 8] = 250;
+				e->img_addr[y * e->size_line + x * e->bits_pix / 8 + 1] = 250;
+				e->img_addr[y * e->size_line + x * e->bits_pix / 8 + 2] = 250;
+			}
+			else
+			{
+				e->img_addr[y * e->size_line + x * e->bits_pix / 8] = 30 - i * 20 / e->iter_max;
+				e->img_addr[y * e->size_line + x * e->bits_pix / 8 + 1] = 20;
+				e->img_addr[y * e->size_line + x * e->bits_pix / 8 + 2] = i * 255 / e->iter_max;
+			}
+			y++;
+		}
+		x++;
+	}
+}
+
+void	display_newton(t_env *e)
+{
+	int		x;
+	int		y;
+	int		i;
+	double	tmp;
+
+	x = 0;
+	while (x < e->image_x)
+	{
+		y = 0;
+		while (y < e->image_y)
+		{
+			e->c_r = e->v_r;
+			e->c_i = e->v_i;
+			e->z_r = x;
+			e->z_i = y;
 			i = 0;
 			while (i < e->iter_max && e->z_r * e->z_r + e->z_i * e->z_i < 4)
 			{
