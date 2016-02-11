@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/10 14:21:02 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/10 18:57:12 by amineau          ###   ########.fr       */
+/*   Updated: 2016/02/11 18:13:27 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	image(t_env *e)
 		display_mandelbrot(e);
 	if (ft_strcmp(e->fract, "julia") == 0)
 		display_julia(e);
+	if (ft_strcmp(e->fract, "newton") == 0)
+		display_newton(e);
 	mlx_put_image_to_window(e->mlx, e->win, e->img, 0, 0);
 }
 
@@ -75,7 +77,7 @@ int		motion_notify(int x, int y, t_env *e)
 {
 	e->pos_x = x;
 	e->pos_y = y;
-	if (ft_strcmp(e->fract, "julia") == 0 && e->block == 1)
+	if ((ft_strcmp(e->fract, "julia") == 0 || ft_strcmp(e->fract, "newton") == 0) && e->block == 1)
 	{
 		e->v_r = (double)(e->pos_x + 250) / 2000;
 		e->v_i = (double)(e->pos_y + 250) / 2000;

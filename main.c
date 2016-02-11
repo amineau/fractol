@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/20 09:18:52 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/10 18:57:10 by amineau          ###   ########.fr       */
+/*   Updated: 2016/02/11 18:12:23 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,19 @@ void	initialize_julia(t_env *e)
 	e->image_x = (e->x2 - e->x1) * 300;
 	e->image_y = (e->y2 - e->y1) * 300;
 	e->iter_max = 75;
-	e->block = 0;
 }
 
-void	initialize_julia(t_env *e)
+void	initialize_newton(t_env *e)
 {
-	e->x1 = 0;
-	e->x2 = 300;
-	e->y1 = 0;
-	e->y2 = 300;
+	e->x1 = -1.4;
+	e->x2 = 1.6;
+	e->y1 = -1.5;
+	e->y2 = 1.5;
 	e->v_r = -0.00508;
 	e->v_i = 0.33136;
-	e->image_x = (e->x2 - e->x1);
-	e->image_y = (e->y2 - e->y1);
-	e->iter_max = 0.1;
-	e->block = 0;
+	e->image_x = (e->x2 - e->x1) * 300;
+	e->image_y = (e->y2 - e->y1) * 300;
+	e->iter_max = 10;
 }
 
 void	initialize(t_env *e, char *str)
@@ -57,6 +55,9 @@ void	initialize(t_env *e, char *str)
 		   	initialize_mandel(e);
 	if (ft_strcmp(e->fract,"julia") == 0)
 		   	initialize_julia(e);
+	if (ft_strcmp(e->fract,"newton") == 0)
+		   	initialize_newton(e);
+	e->block = 0;
 	e->mlx = mlx_init();
 	e->win = mlx_new_window(e->mlx, e->image_x, e->image_y, e->fract);
 }

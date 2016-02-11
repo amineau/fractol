@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 13:21:31 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/10 16:23:24 by amineau          ###   ########.fr       */
+/*   Updated: 2016/02/11 19:18:54 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ typedef struct	s_env
 	double	v_i;
 	double	z_r;
 	double	z_i;
+	int		x;
+	int		y;
 	int		iter_max;
 	int		pos_x;
 	int		pos_y;
@@ -52,5 +54,6 @@ int		mouse_press(int button, int x, int y, t_env *e);
 int		expose_hook(t_env *e);
 void	display_mandelbrot(t_env *e);
 void	display_julia(t_env *e);
+void	display_newton(t_env *e);
 
 #endif
