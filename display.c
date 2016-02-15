@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 18:29:59 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/11 18:08:20 by amineau          ###   ########.fr       */
+/*   Updated: 2016/02/15 16:08:13 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ void	display_newton(t_env *e)
 	int		i;
 	double	tmp;
 	double	appro;
+	double	xx;
+	double	yy;
 
 	appro = 0.1;
 	e->x = 0;
@@ -105,14 +107,41 @@ void	display_newton(t_env *e)
 			e->z_r = (e->x * (e->x2 - e->x1) / e->image_x) + e->x1;
 			e->z_i = (e->y * (e->y2 - e->y1) / e->image_y) + e->y1;
 			i = 0;
-			while (i < e->iter_max)
+			while (i < e->iter_max )
 			{
 				tmp = e->z_r;
-				e->z_r = e->z_r * (e->z_r * e->z_r - e->c_r * e->c_r + e->c_i * e->c_i - 3 * e->z_i * e->z_i - 3 / 4) + e->c_i * (2 * e->c_r * e->z_i - e->c_i) + e->c_r * e->c_r - 1 / 4;
-				e->z_i = e->z_i * (3 * tmp * tmp - e->c_r * e->c_r - e->z_i * e->z_i + e->c_i * e->c_i - 3 / 4) + e->c_i * e->c_r * (2 - 2 * tmp);
+				xx = e->z_r * e->z_r;
+				yy = e->z_i * e->z_i;
+			//	e->z_r = (2 * e->z_r * (xx - 2 * yy) - 4 * yy + 1) / (9 * (xx * xx - 2 * xx * yy + yy * yy));
+			//	e->z_i = (e->z_i * ( 2 * tmp + xx - yy)) / (9 * (xx * xx - 2 * xx * yy + yy * yy));
+			//	e->z_r = e->z_r * (e->z_r * e->z_r - e->c_r * e->c_r + e->c_i * e->c_i - 3 * e->z_i * e->z_i - 3 / 4) + e->c_r * (e->c_r + 2 * e->c_i *e->z_i) - e->c_i * e->c_i - 1 / 4;
+			//	e->z_i = e->z_i * (3 * tmp * tmp - e->c_r * e->c_r - e->z_i * e->z_i + e->c_i * e->c_i - 3 / 4) + e->c_i * e->c_r * (2 - 2 * tmp);
+			e->z_r = xx * e->z_r - 3 * e->z_r * yy - 1;
+			e->z_i = yy * e->z_i - 3 * xx * e->z_i;
+				if (e->x == 10 && e->y == 10)
+				printf("z_r : %f || z_i : %f\n", e->z_r, e->z_i);
+				
 				if (fabs(e->z_r - 1) <= appro && fabs(e->z_i) <= appro)
 				{	
 					display(e, 255, 0, 0);
+		//			printf("i : %d || z_r : %f\n", i, e->z_r);
+					break;
+				}
+				else if (fabs(e->z_r + 1 / 2) <= appro && fabs(e->z_i + sqrt(3) / 2) <= appro)
+				{	
+					display(e, 0, 255, 0);
+					break;
+				}
+				else if (fabs(e->z_r + 1 / 2) <= appro && fabs(e->z_i - sqrt(3) / 2) <= appro)
+				{	
+					display(e, 0, 0, 255);
+					break;
+				}
+
+				/*if (fabs(e->z_r - 1) <= appro && fabs(e->z_i) <= appro)
+				{	
+					display(e, 255, 0, 0);
+		//			printf("i : %d || z_r : %f\n", i, e->z_r);
 					break;
 				}
 				else if (fabs(e->z_r - e->c_r + 1 / 2) <= appro && fabs(e->z_i - e->c_i) <= appro)
@@ -124,11 +153,13 @@ void	display_newton(t_env *e)
 				{			
 					display(e, 0, 0, 255);
 					break;
-				}
+				}*/
 				i++;
 			}
 			if (i == e->iter_max)
 				display(e, 0, 0, 0);
+		//	if (e->x % 100 == 0 && e->y % 100 == 0)
+		//		printf("z_r : %f || z_i : %f\n", e->z_r, e->z_i);
 			e->y++;
 		}
 		e->x++;
