@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 18:29:59 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/15 16:08:13 by amineau          ###   ########.fr       */
+/*   Updated: 2016/02/19 16:06:45 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,52 @@ void	display_julia(t_env *e)
 		}
 		e->x++;
 	}
+}
+
+void	karpet(t_env *e, t_kar *k, double x, double y)
+{
+	printf("iter : %d\n",k->iter);
+	if (k->iter > 0 )
+	{
+		e->x = (int)x;
+		while (e->x < x + k->cote)
+		{
+			e->y = (int)y;
+			while (e->y < y + k->cote)
+			{
+				if (e->x > (int)(x + k->cote / 3) && e->x < (int)(x + 2 * k->cote / 3)
+				&& e->y > (int)(y + k->cote / 3) && e->y < (int)(y + 2 * k->cote / 3)) 
+					display(e, 0, 0, 0);
+				else if (k->iter == e->iter_max)
+					display(e, 0, 255, 255);
+				y++;
+			}
+			x++;
+		}
+		k->iter--;
+		k->cote /= 3;
+		karpet(e, k, x, y);
+		karpet(e, k, x, y + k->cote);
+		karpet(e, k, x, y + 2 * k->cote);
+		karpet(e, k, x + k->cote, y);
+		karpet(e, k, x + k->cote, y + k->cote);
+		karpet(e, k, x + k->cote, y + 2 * k->cote);
+		karpet(e, k, x + 2 * k->cote, y);
+		karpet(e, k, x + 2 * k->cote, y + k->cote);
+		karpet(e, k, x + 2 * k->cote, y + 2 * k->cote);
+	}
+}
+
+void	display_karpet(t_env *e)
+{	
+	t_kar	k;
+
+	k.x = e->image_x / 3;
+	k.y = e->image_y / 3;
+	k.cote = k.x;
+	k.zoom = 1;
+	k.iter = e->iter_max;
+	karpet(e, &k, k.x, k.y);
 }
 
 void	display_newton(t_env *e)
