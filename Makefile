@@ -4,7 +4,7 @@ CC = gcc
 LFTPATCH = ./libft/
 LMLXPATCH = ./minilibx/
 LIBS = -L$(LMLXPATCH) -lmlx -framework OpenGL -framework AppKit -L$(LFTPATCH) -lft 
-FLAGS = -Wall -Werror -Wextra -O2 -O3
+FLAGS = -Wall -Werror -Wextra -O2
 SRC = main.c \
 	  hook.c \
 	  display.c

@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 18:29:59 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/19 23:23:46 by amineau          ###   ########.fr       */
+/*   Updated: 2016/02/20 19:40:17 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,33 +87,56 @@ void	display_julia(t_env *e)
 	}
 }
 
-void	karpet(t_env *e, double x, double y, int iter, int cote)
+void	karpet(t_env *e, t_kar k)
 {
-	if (iter > 0)
+	double	cote3;
+	int		xc;
+	int		xc2;
+	int		yc;
+	int		yc2;
+
+	if (k.iter > 0)
 	{
+		cote3 = k.cote;
+		k.cote /= 3;
 		e->x = 0;
+		xc = (int)(k.x + k.cote);
+		xc2 = (int)(k.x + 2 * k.cote);
+		yc = (int)(k.y + k.cote);
+		yc2 = (int)(k.y + 2 * k.cote);
 		while (e->x < e->x2)
 		{
 			e->y = 0;
 			while (e->y < e->y2)
 			{
-				if ((iter == e->iter_max && (e->x < x || e->x > x + cote || e->y < y || e->y > y + cote)) || ((e->x > (int)(x + cote / 3) && e->x < (int)(x + 2 * cote / 3)) && (e->y > (int)(y + cote / 3) && e->y < (int)(y + 2 * cote / 3)))) 
+				if ((k.iter == e->iter_max && (e->x < k.x || e->x > k.x + cote3 || e->y < k.y || e->y > k.y + cote3)) 
+				|| ((e->x > xc && e->x < xc2)
+				&& (e->y > yc && e->y < yc2))) 
 					display(e, 0, 0, 0);
-				else if (iter == e->iter_max)
+				else if (k.iter == e->iter_max)
 					display(e, 0, 255, 255);
 				e->y++;
 			}
 			e->x++;
 		}
-		karpet(e, x, y, iter - 1, cote / 3);
-		karpet(e, x, y + cote / 3, iter - 1, cote / 3);
-		karpet(e, x, y + 2 * cote / 3, iter - 1, cote / 3);
-		karpet(e, x + cote / 3, y, iter - 1, cote / 3);
-		karpet(e, x + cote / 3, y + cote / 3, iter - 1, cote / 3);
-		karpet(e, x + cote / 3, y + 2 * cote / 3, iter - 1, cote / 3);
-		karpet(e, x + 2 * cote / 3, y, iter - 1, cote / 3);
-		karpet(e, x + 2 * cote / 3, y + cote / 3, iter - 1, cote / 3);
-		karpet(e, x + 2 * cote / 3, y + 2 * cote / 3, iter - 1, cote / 3);
+		k.iter--;
+		karpet(e, k);
+		k.y += k.cote;
+		karpet(e, k);
+		k.y += k.cote;
+		karpet(e, k);
+		k.x += k.cote;
+		k.y -= 2 * k.cote;
+		karpet(e, k);
+		k.y += 2 * k.cote;
+		karpet(e, k);
+		k.x += k.cote;
+		k.y -= 2 * k.cote;
+		karpet(e, k);
+		k.y += k.cote;
+		karpet(e, k);
+		k.y += k.cote;
+		karpet(e, k);
 	}
 }
 
@@ -125,7 +148,7 @@ void	display_karpet(t_env *e)
 	k.y = e->image_y / 4;
 	k.cote = e->image_x / 2;
 	k.iter = e->iter_max;
-	karpet(e, k.x, k.y, k.iter, k.cote);
+	karpet(e, k);
 }
 
 void	display_newton(t_env *e)
