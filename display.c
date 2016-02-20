@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 18:29:59 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/20 19:40:17 by amineau          ###   ########.fr       */
+/*   Updated: 2016/02/20 22:05:20 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,23 +95,24 @@ void	karpet(t_env *e, t_kar k)
 	int		yc;
 	int		yc2;
 
-	if (k.iter > 0)
+	if (k.iter > 0 && (int)(k.x + k.cote) > 0 && (int)k.x < e->x2 && (int)(k.y + k.cote) > 0 && (int)k.y < e->y2)
 	{
 		cote3 = k.cote;
 		k.cote /= 3;
-		e->x = 0;
+		e->x = ((int)k.x > 0) ? (int)k.x : 0;
+		e->y = ((int)k.y > 0) ? (int)k.y : 0;
 		xc = (int)(k.x + k.cote);
 		xc2 = (int)(k.x + 2 * k.cote);
 		yc = (int)(k.y + k.cote);
 		yc2 = (int)(k.y + 2 * k.cote);
-		while (e->x < e->x2)
+		while (e->x < e->x2 && e->x < k.x + cote3)
 		{
 			e->y = 0;
-			while (e->y < e->y2)
+			while (e->y < e->y2 && e->y < k.y + cote3)
 			{
 				if ((k.iter == e->iter_max && (e->x < k.x || e->x > k.x + cote3 || e->y < k.y || e->y > k.y + cote3)) 
-				|| ((e->x > xc && e->x < xc2)
-				&& (e->y > yc && e->y < yc2))) 
+						|| ((e->x > xc && e->x < xc2)
+							&& (e->y > yc && e->y < yc2))) 
 					display(e, 0, 0, 0);
 				else if (k.iter == e->iter_max)
 					display(e, 0, 255, 255);
@@ -176,19 +177,19 @@ void	display_newton(t_env *e)
 				tmp = e->z_r;
 				xx = e->z_r * e->z_r;
 				yy = e->z_i * e->z_i;
-			//	e->z_r = (2 * e->z_r * (xx - 2 * yy) - 4 * yy + 1) / (9 * (xx * xx - 2 * xx * yy + yy * yy));
-			//	e->z_i = (e->z_i * ( 2 * tmp + xx - yy)) / (9 * (xx * xx - 2 * xx * yy + yy * yy));
-			//	e->z_r = e->z_r * (e->z_r * e->z_r - e->c_r * e->c_r + e->c_i * e->c_i - 3 * e->z_i * e->z_i - 3 / 4) + e->c_r * (e->c_r + 2 * e->c_i *e->z_i) - e->c_i * e->c_i - 1 / 4;
-			//	e->z_i = e->z_i * (3 * tmp * tmp - e->c_r * e->c_r - e->z_i * e->z_i + e->c_i * e->c_i - 3 / 4) + e->c_i * e->c_r * (2 - 2 * tmp);
-			e->z_r = xx * e->z_r - 3 * e->z_r * yy - 1;
-			e->z_i = yy * e->z_i - 3 * xx * e->z_i;
+				//	e->z_r = (2 * e->z_r * (xx - 2 * yy) - 4 * yy + 1) / (9 * (xx * xx - 2 * xx * yy + yy * yy));
+				//	e->z_i = (e->z_i * ( 2 * tmp + xx - yy)) / (9 * (xx * xx - 2 * xx * yy + yy * yy));
+				//	e->z_r = e->z_r * (e->z_r * e->z_r - e->c_r * e->c_r + e->c_i * e->c_i - 3 * e->z_i * e->z_i - 3 / 4) + e->c_r * (e->c_r + 2 * e->c_i *e->z_i) - e->c_i * e->c_i - 1 / 4;
+				//	e->z_i = e->z_i * (3 * tmp * tmp - e->c_r * e->c_r - e->z_i * e->z_i + e->c_i * e->c_i - 3 / 4) + e->c_i * e->c_r * (2 - 2 * tmp);
+				e->z_r = xx * e->z_r - 3 * e->z_r * yy - 1;
+				e->z_i = yy * e->z_i - 3 * xx * e->z_i;
 				if (e->x == 10 && e->y == 10)
-				printf("z_r : %f || z_i : %f\n", e->z_r, e->z_i);
-				
+					printf("z_r : %f || z_i : %f\n", e->z_r, e->z_i);
+
 				if (fabs(e->z_r - 1) <= appro && fabs(e->z_i) <= appro)
 				{	
 					display(e, 255, 0, 0);
-		//			printf("i : %d || z_r : %f\n", i, e->z_r);
+					//			printf("i : %d || z_r : %f\n", i, e->z_r);
 					break;
 				}
 				else if (fabs(e->z_r + 1 / 2) <= appro && fabs(e->z_i + sqrt(3) / 2) <= appro)
@@ -203,27 +204,27 @@ void	display_newton(t_env *e)
 				}
 
 				/*if (fabs(e->z_r - 1) <= appro && fabs(e->z_i) <= appro)
-				{	
-					display(e, 255, 0, 0);
-		//			printf("i : %d || z_r : %f\n", i, e->z_r);
-					break;
+				  {	
+				  display(e, 255, 0, 0);
+				//			printf("i : %d || z_r : %f\n", i, e->z_r);
+				break;
 				}
 				else if (fabs(e->z_r - e->c_r + 1 / 2) <= appro && fabs(e->z_i - e->c_i) <= appro)
 				{	
-					display(e, 0, 255, 0);
-					break;
+				display(e, 0, 255, 0);
+				break;
 				}
 				else if (fabs(e->z_r + e->c_r + 1 / 2) <= appro && fabs(e->z_i + e->c_i) <= appro)
 				{			
-					display(e, 0, 0, 255);
-					break;
+				display(e, 0, 0, 255);
+				break;
 				}*/
 				i++;
 			}
 			if (i == e->iter_max)
 				display(e, 0, 0, 0);
-		//	if (e->x % 100 == 0 && e->y % 100 == 0)
-		//		printf("z_r : %f || z_i : %f\n", e->z_r, e->z_i);
+			//	if (e->x % 100 == 0 && e->y % 100 == 0)
+			//		printf("z_r : %f || z_i : %f\n", e->z_r, e->z_i);
 			e->y++;
 		}
 		e->x++;
