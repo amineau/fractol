@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 13:21:31 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/22 14:34:46 by amineau          ###   ########.fr       */
+/*   Updated: 2016/02/22 17:40:05 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct	s_env
 	double	z_i;
 	int		x;
 	int		y;
-	int		iter_max;
+	int		im;
 	int		block;
 	int		b;
 	int		g;
@@ -63,5 +63,6 @@ int		expose_hook(t_env *e);
 void	display_mandelbrot(t_env *e);
 void	display_julia(t_env *e);
 void	display_karpet(t_env *e);
+void	ft_error(int er);
 
 #endif

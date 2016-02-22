@@ -6,11 +6,12 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/20 09:18:52 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/22 14:29:20 by amineau          ###   ########.fr       */
+/*   Updated: 2016/02/22 17:38:45 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+
 void	initialize_mandel(t_env *e)
 {
 	e->x1 = -2.1;
@@ -19,7 +20,7 @@ void	initialize_mandel(t_env *e)
 	e->y2 = 1.2;
 	e->image_x = (e->x2 - e->x1) * 300;
 	e->image_y = (e->y2 - e->y1) * 300;
-	e->iter_max = 50;
+	e->im = 50;
 }
 
 void	initialize_julia(t_env *e)
@@ -32,7 +33,7 @@ void	initialize_julia(t_env *e)
 	e->v_i = 0.01;
 	e->image_x = (e->x2 - e->x1) * 300;
 	e->image_y = (e->y2 - e->y1) * 300;
-	e->iter_max = 75;
+	e->im = 75;
 }
 
 void	initialize_karpet(t_env *e)
@@ -46,18 +47,23 @@ void	initialize_karpet(t_env *e)
 	e->z_r = e->image_x / 4;
 	e->z_i = e->image_y / 4;
 	e->c_r = e->image_x / 2;
-	e->iter_max = 2;
+	e->im = 20;
 }
 
 void	initialize(t_env *e, char *str)
 {
 	e->fract = str;
 	if (ft_strcmp(e->fract, "mandelbrot") == 0)
-		   	initialize_mandel(e);
-	if (ft_strcmp(e->fract,"julia") == 0)
-		   	initialize_julia(e);
-	if (ft_strcmp(e->fract,"karpet") == 0)
-		   	initialize_karpet(e);
+		initialize_mandel(e);
+	else if (ft_strcmp(e->fract, "julia") == 0)
+		initialize_julia(e);
+	else if (ft_strcmp(e->fract, "karpet") == 0)
+		initialize_karpet(e);
+	else
+		ft_error(1);
+	e->b = 255;
+	e->g = 255;
+	e->r = 255;
 	e->block = 0;
 	e->mlx = mlx_init();
 	e->win = mlx_new_window(e->mlx, e->image_x, e->image_y, e->fract);
@@ -77,6 +83,6 @@ int		main(int ac, char **av)
 		mlx_loop(e.mlx);
 	}
 	else
-		ft_putendl("error : invalid number of arguments");
+		ft_error(0);
 	return (0);
 }

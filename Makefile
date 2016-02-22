@@ -7,7 +7,8 @@ LIBS = -L$(LMLXPATCH) -lmlx -framework OpenGL -framework AppKit -L$(LFTPATCH) -l
 FLAGS = -Wall -Werror -Wextra -O2
 SRC = main.c \
 	  hook.c \
-	  display.c
+	  display.c \
+	  ft_error.c
 
 OBJ = $(SRC:.c=.o)
 
