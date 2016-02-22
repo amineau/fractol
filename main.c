@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/20 09:18:52 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/22 17:38:45 by amineau          ###   ########.fr       */
+/*   Updated: 2016/02/22 18:29:43 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	initialize_julia(t_env *e)
 	e->im = 75;
 }
 
-void	initialize_karpet(t_env *e)
+void	initialize_carpet(t_env *e)
 {
 	e->x1 = 0;
 	e->x2 = 1000;
@@ -53,12 +53,12 @@ void	initialize_karpet(t_env *e)
 void	initialize(t_env *e, char *str)
 {
 	e->fract = str;
-	if (ft_strcmp(e->fract, "mandelbrot") == 0)
+	if (ft_strcasecmp(e->fract, "mandelbrot") == 0)
 		initialize_mandel(e);
-	else if (ft_strcmp(e->fract, "julia") == 0)
+	else if (ft_strcasecmp(e->fract, "julia") == 0)
 		initialize_julia(e);
-	else if (ft_strcmp(e->fract, "karpet") == 0)
-		initialize_karpet(e);
+	else if (ft_strcasecmp(e->fract, "carpet") == 0)
+		initialize_carpet(e);
 	else
 		ft_error(1);
 	e->b = 255;

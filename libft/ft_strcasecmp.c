@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_error.c                                         :+:      :+:    :+:   */
+/*   ft_strcasecmp.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/02/22 17:32:25 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/22 18:30:41 by amineau          ###   ########.fr       */
+/*   Created: 2016/02/22 17:54:40 by amineau           #+#    #+#             */
+/*   Updated: 2016/02/22 18:27:56 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
-
-void	ft_error(int er)
+#include "libft.h"
+#include <stdio.h>
+int	ft_strcasecmp(const char *s1, const char *s2)
 {
-	if (er == 0)
-		ft_putendl("error : invalid number of arguments");
-	if (er == 1)
-		ft_putendl("error : invalid argument");
-	ft_putendl("list of valid arguments :\nMandelbrot\nJulia\nCarpet");
-		exit(0);
+	int i;
+
+	i = 0;
+	while (((ft_islower(s1[i]) && s1[i] == s2[i] + 32) ||
+			(ft_isupper(s1[i]) && s1[i] == s2[i] - 32) ||
+			(s1[i] == s2[i])) && (s1[i] || s2[i]))
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }

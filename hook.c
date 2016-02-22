@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/10 14:21:02 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/22 17:31:52 by amineau          ###   ########.fr       */
+/*   Updated: 2016/02/22 18:31:58 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ void	image(t_env *e)
 	e->img = mlx_new_image(e->mlx, e->image_x, e->image_y);
 	e->img_addr = mlx_get_data_addr(e->img,
 			&e->bits_pix, &e->size_line, &e->end);
-	if (ft_strcmp(e->fract, "mandelbrot") == 0)
+	if (ft_strcasecmp(e->fract, "mandelbrot") == 0)
 		display_mandelbrot(e);
-	if (ft_strcmp(e->fract, "julia") == 0)
+	if (ft_strcasecmp(e->fract, "julia") == 0)
 		display_julia(e);
-	if (ft_strcmp(e->fract, "karpet") == 0)
-		display_karpet(e);
+	if (ft_strcasecmp(e->fract, "carpet") == 0)
+		display_carpet(e);
 	mlx_put_image_to_window(e->mlx, e->win, e->img, 0, 0);
 }
 
@@ -33,7 +33,7 @@ void	move(t_env *e, int keycode)
 	double	dif_x;
 	double	dif_y;
 
-	if (ft_strcmp(e->fract, "karpet") == 0)
+	if (ft_strcasecmp(e->fract, "carpet") == 0)
 	{
 		e->z_i -= (keycode == 125) ? e->image_y / 20 : 0;
 		e->z_i += (keycode == 126) ? e->image_y / 20 : 0;
@@ -80,7 +80,7 @@ int		key_press(int keycode, t_env *e)
 
 int		motion_notify(int x, int y, t_env *e)
 {
-	if ((ft_strcmp(e->fract, "julia") == 0) && e->block == 1)
+	if ((ft_strcasecmp(e->fract, "julia") == 0) && e->block == 1)
 	{
 		e->v_r = (double)(x - 400) / 500;
 		e->v_i = (double)(y - 300) / 500;
@@ -122,7 +122,7 @@ void	zoom(t_env *e, int x, int y, int button)
 
 int		mouse_press(int button, int x, int y, t_env *e)
 {
-	if (ft_strcmp(e->fract, "karpet") == 0)
+	if (ft_strcasecmp(e->fract, "carpet") == 0)
 	{
 		if (button == 5 || button == 6)
 		{

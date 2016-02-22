@@ -6,12 +6,11 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 18:29:59 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/22 17:16:12 by amineau          ###   ########.fr       */
+/*   Updated: 2016/02/22 18:32:24 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-#include <stdio.h>
 
 void	display(t_env *e, int blue, int green, int red)
 {
@@ -91,7 +90,7 @@ void	display_julia(t_env *e)
 	}
 }
 
-void	boucle_karpet(t_env *e, t_kar *k)
+void	boucle_carpet(t_env *e, t_kar *k)
 {
 	int		xc;
 	int		xc2;
@@ -119,35 +118,34 @@ void	boucle_karpet(t_env *e, t_kar *k)
 	}
 }
 
-void	karpet(t_env *e, t_kar k)
+void	carpet(t_env *e, t_kar k)
 {
-	//	printf("k.x + k.cote : %d || k.x : %f < %f\n",(int)(k.x + k.cote), k.x, e->x2);
 	if (k.iter > 0 && k.x + k.cote > 0.0 && k.x <= e->x2 &&
 			k.y + k.cote > 0.0 && k.y <= e->y2 && k.cote > 3.0)
 	{
-		boucle_karpet(e, &k);
+		boucle_carpet(e, &k);
 		k.iter--;
-		karpet(e, k);
+		carpet(e, k);
 		k.y += k.cote;
-		karpet(e, k);
+		carpet(e, k);
 		k.y += k.cote;
-		karpet(e, k);
+		carpet(e, k);
 		k.x += k.cote;
 		k.y -= 2 * k.cote;
-		karpet(e, k);
+		carpet(e, k);
 		k.y += 2 * k.cote;
-		karpet(e, k);
+		carpet(e, k);
 		k.x += k.cote;
 		k.y -= 2 * k.cote;
-		karpet(e, k);
+		carpet(e, k);
 		k.y += k.cote;
-		karpet(e, k);
+		carpet(e, k);
 		k.y += k.cote;
-		karpet(e, k);
+		carpet(e, k);
 	}
 }
 
-void	display_karpet(t_env *e)
+void	display_carpet(t_env *e)
 {
 	t_kar	k;
 
@@ -155,5 +153,5 @@ void	display_karpet(t_env *e)
 	k.y = e->z_i;
 	k.cote = e->c_r;
 	k.iter = e->im;
-	karpet(e, k);
+	carpet(e, k);
 }
