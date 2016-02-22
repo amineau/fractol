@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 13:21:31 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/20 18:36:10 by amineau          ###   ########.fr       */
+/*   Updated: 2016/02/22 14:34:46 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ typedef struct	s_env
 	double	x2;
 	double	y1;
 	double	y2;
-	double	zoom;
 	double	image_x;
 	double	image_y;
 	double	c_r;
@@ -36,9 +35,10 @@ typedef struct	s_env
 	int		x;
 	int		y;
 	int		iter_max;
-	int		pos_x;
-	int		pos_y;
 	int		block;
+	int		b;
+	int		g;
+	int		r;
   	void	*mlx;
 	void	*win;
 	void	*img;
@@ -53,7 +53,6 @@ typedef struct	s_karpet
 	double	x;
 	double	y;
 	double	cote;
-	double	zoom;
 	int		iter;
 }				t_kar;
 

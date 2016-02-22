@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/10 14:21:02 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/20 17:20:08 by amineau          ###   ########.fr       */
+/*   Updated: 2016/02/22 14:34:44 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,56 +33,41 @@ int		key_press(int keycode, t_env *e)
 	double	dif_x;
 	double	dif_y;
 
-	dif_x = e->x2 - e->x1;
-	dif_y = e->y2 - e->y1;
 	if (keycode == 53)
 		exit(0);
-	if (keycode == 69)
-		e->iter_max++;
-	if (keycode == 78 && e->iter_max > 1)
-		e->iter_max--;
-	if (keycode == 125)
+	e->iter_max += (keycode == 69) ? 1 : 0;
+	e->iter_max -= (keycode == 78 && e->iter_max > 1) ? 1 : 0;
+	if (ft_strcmp(e->fract, "karpet") == 0)
 	{
-		e->y1 += dif_y / 20;
-		e->y2 += dif_y / 20;
+		e->z_i -= (keycode == 125) ? e->image_y / 20 : 0;
+		e->z_i += (keycode == 126) ? e->image_y / 20 : 0;
+		e->z_r -= (keycode == 124) ? e->image_x / 20 : 0;
+		e->z_r += (keycode == 123) ? e->image_x / 20 : 0;
 	}
-	if (keycode == 126)
+	else
 	{
-		e->y1 -= dif_y / 20;
-		e->y2 -= dif_y / 20;
-	}
-	if (keycode == 123)
-	{
-		e->x1 -= dif_x / 20;
-		e->x2 -= dif_x / 20;
-	}
-	if (keycode == 124)
-	{
-		e->x1 += dif_x / 20;
-		e->x2 += dif_x / 20;
+		dif_x = e->x2 - e->x1;
+		dif_y = e->y2 - e->y1;
+		e->y1 += (keycode == 125) ? dif_y / 20 : 0;
+		e->y1 -= (keycode == 126) ? dif_y / 20 : 0;
+		e->x1 -= (keycode == 123) ? dif_x / 20 : 0;
+		e->x1 += (keycode == 124) ? dif_x / 20 : 0;
+		e->x2 = e->x1 + dif_x;
+		e->y2 = e->y1 + dif_y;
 	}
 	if (keycode == 49)
-	{
-		if (e->block == 0)
-			e->block = 1;
-		else
-			e->block = 0;
-	}
-		printf("keycode : %d\n", keycode);
+		e->block = (e->block == 0) ? 1 : 0;
 	image(e);
 	return (0);
 }
 
 int		motion_notify(int x, int y, t_env *e)
 {
-	e->pos_x = x;
-	e->pos_y = y;
 	if ((ft_strcmp(e->fract, "julia") == 0) && e->block == 1)
 	{
-		e->v_r = (double)(e->pos_x + 250) / 2000;
-		e->v_i = (double)(e->pos_y + 250) / 2000;
+		e->v_r = (double)(x - 400) / 500;
+		e->v_i = (double)(y - 300) / 500;
 		image(e);
-		printf("v_r : %f || v_i : %f\n",e->v_r ,e->v_i);
 	}
 	return (0);
 }
@@ -91,15 +76,26 @@ int		mouse_press(int button, int x, int y, t_env *e)
 {
 	double	k_x;
 	double	k_y;
-	double	dif_x;
-	double	dif_y;
 
-	if (x || y)
-		;
-	dif_x = e->x2 - e->x1;
-	dif_y = e->y2 - e->y1;
-	k_x = (e->pos_x * dif_x / e->image_x) + e->x1;
-	k_y = (e->pos_y * dif_y / e->image_y) + e->y1;
+	if (ft_strcmp(e->fract, "karpet") == 0)
+	{
+		if (button == 5 || button == 6)
+		{
+			e->c_r *= 1.1;
+			e->z_r += (e->z_r - x) * 0.1;
+			e->z_i += (e->z_i - y) * 0.1;
+		}
+		if (button == 4 || button == 7)
+		{
+			e->c_r /= 1.1;
+			e->z_r -= (e->z_r - x) * 0.1;
+			e->z_i -= (e->z_i - y) * 0.1;
+		}
+	}
+	else
+	{
+	k_x = (x * (e->x2 - e->x1) / e->image_x) + e->x1;
+	k_y = (y * (e->y2 - e->y1) / e->image_y) + e->y1;
 	if (button == 5 || button == 6)
 	{
 		e->x2 = k_x + (e->x2 - k_x) / 1.1;
@@ -113,6 +109,7 @@ int		mouse_press(int button, int x, int y, t_env *e)
 		e->y2 = k_y + (e->y2 - k_y) * 1.1;
 		e->x1 = k_x + (e->x1 - k_x) * 1.1;
 		e->y1 = k_y + (e->y1 - k_y) * 1.1;
+	}
 	}
 	image(e);
 	return (0);

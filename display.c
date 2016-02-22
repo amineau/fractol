@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 18:29:59 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/20 22:05:20 by amineau          ###   ########.fr       */
+/*   Updated: 2016/02/22 14:34:48 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,9 +145,9 @@ void	display_karpet(t_env *e)
 {	
 	t_kar	k;
 
-	k.x = e->image_x / 4;
-	k.y = e->image_y / 4;
-	k.cote = e->image_x / 2;
+	k.x = e->z_r;
+	k.y = e->z_i;
+	k.cote = e->c_r;
 	k.iter = e->iter_max;
 	karpet(e, k);
 }
