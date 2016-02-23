@@ -6,12 +6,12 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 17:54:40 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/22 18:27:56 by amineau          ###   ########.fr       */
+/*   Updated: 2016/02/23 13:54:17 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
+
 int	ft_strcasecmp(const char *s1, const char *s2)
 {
 	int i;

@@ -11,6 +11,7 @@ SRC = main.c \
 	  mandelbrot.c \
 	  julia.c \
 	  carpet.c \
+	  image.c \
 	  ft_error.c
 
 OBJ = $(SRC:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 17:32:25 by amineau           #+#    #+#             */
-/*   Updated: 2016/02/22 18:30:41 by amineau          ###   ########.fr       */
+/*   Updated: 2016/02/23 13:50:10 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,5 @@ void	ft_error(int er)
 	if (er == 1)
 		ft_putendl("error : invalid argument");
 	ft_putendl("list of valid arguments :\nMandelbrot\nJulia\nCarpet");
-		exit(0);
+	exit(0);
 }
