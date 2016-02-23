@@ -8,6 +8,9 @@ FLAGS = -Wall -Werror -Wextra -O2
 SRC = main.c \
 	  hook.c \
 	  display.c \
+	  mandelbrot.c \
+	  julia.c \
+	  carpet.c \
 	  ft_error.c
 
 OBJ = $(SRC:.c=.o)
